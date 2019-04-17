@@ -1,20 +1,186 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="h-100 d-flex flex-column" [ngClass]="{ 'bg': step == 1 }">
+  <div class="container">
+    <nav class="navbar" [ngClass]="{'navbar-dark' : step == 1, 'navbar-light' : step != 1}">
+      <a class="navbar-brand mb-0 h1" href="/">{{ title }}</a>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <mat-menu #menu="matMenu" >
+            <button mat-menu-item>Login</button>
+            <button mat-menu-item>Logout</button>
+          </mat-menu>
+          <button mat-button [matMenuTriggerFor]="menu" [ngStyle]="{'color': 'white'}"><i class="material-icons">account_circle</i>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div [style.flex]="'1 1 auto'" class="align-items-center d-flex justify-content-center"> 
+    <mat-horizontal-stepper linear [style.backgroundColor]="'transparent'">
+      <mat-step [editable]="true">
+        <div class="container text-center">
+          <h6 class="text-light text-center">Your next visit starts:</h6>
+          <h1 class="text-light text-center font-weight-bold text-uppercase">Today, 9:00 AM</h1>
+          <button matStepperNext type="button" class="btn btn-success text-uppercase" (click)="step = 2">fill out entry form</button>
+        </div>
+      </mat-step>
+      <mat-step [editable]="true">
+        <div class="container d-flex flex-column justify-content-between" [style.height]="'80vh'">
+          <div>
+            <button matStepperPrevious (click)="step = 1" class="btn btn-outline-success rounded-circle"><i class='fas fa-arrow-left'></i></button>
+          </div>
+          <div class="row">
+            <div class="col-12"><h3 class="text-center">Please select your sex</h3></div>
+            <div class="col-12 col-sm-2 col-md-3 col-lg-4"></div>
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+              <mat-card>
+                <mat-card-content class="d-flex justify-content-center mat-card-content">
+                  <img src="../assets/images/girl.png">
+                </mat-card-content>
+                <mat-card-actions>
+                  <button type="button"  matStepperNext class="btn btn-success w-100" (click)="onSex('female')">Female</button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                <mat-card>
+                  <mat-card-content class="d-flex justify-content-center mat-card-content">
+                    <img src="../assets/images/boy.png">
+                  </mat-card-content>
+                  <mat-card-actions>
+                    <button type="button"  matStepperNext class="btn btn-success w-100" (click)="onSex('male')">Male</button>
+                  </mat-card-actions>
+                </mat-card>
+            </div>
+            <div class="col-12 col-sm-2 col-md-3 col-lg-4"></div>
+          </div>
+          <div class="text-right" [style.visibility]="'hidden'">
+            <button matStepperNext type="button" class="btn btn-success text-uppercase" (click)="step = 3">Next</button>
+          </div>
+        </div>
+      </mat-step>
+      <mat-step [editable]="true">
+        <div class="container d-flex flex-column justify-content-between" [style.height]="'80vh'">
+          <div>
+            <button matStepperPrevious (click)="step = 2" class="btn btn-outline-success rounded-circle"><i class='fas fa-arrow-left'></i></button>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <h3 class="text-center">How old are you?</h3>
+            </div>
+            <div class="col-12 col-sm-1 col-md-2 col-lg-3"></div> 
+            <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+              <mat-slider min="10" max="100" step="1" value="10" class="mt-3 w-100" thumbLabel></mat-slider>
+            </div>
+            <div class="col-12 col-sm-1 col-md-2 col-lg-3"></div> 
+          </div>
+          <div class="text-right">
+            <button matStepperNext type="button" class="btn btn-success text-uppercase" (click)="step = 4">Next</button>
+          </div>
+        </div>
+      </mat-step>
+      <mat-step [editable]="true">
+        <div class="container d-flex flex-column justify-content-between" [style.height]="'80vh'">
+          <div>
+            <button matStepperPrevious (click)="step = 3" class="btn btn-outline-success rounded-circle"><i class='fas fa-arrow-left'></i></button>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <h3 class="text-center">Please check all that apply to you</h3>
+            </div>
+            <div class="col-12 col-sm-1 col-md-2 col-lg-4"></div> 
+            <div class="col-12 col-sm-10 col-md-8 col-lg-4 d-flex flex-column">
+              <mat-checkbox class="mt-3"><h5>I smoke cigarettes</h5></mat-checkbox>
+              <mat-checkbox><h5>I have hypertension</h5></mat-checkbox>
+              <mat-checkbox><h5>I have diabetes</h5></mat-checkbox>
+              <mat-checkbox><h5>I had a stroke</h5></mat-checkbox>
+              <mat-checkbox><h5>I had a heart attack</h5></mat-checkbox>
+            </div>
+            <div class="col-12 col-sm-1 col-md-2 col-lg-4"></div> 
+          </div>
+          <div class="text-right">
+            <button matStepperNext type="button" class="btn btn-success text-uppercase" (click)="step = 5">Next</button>
+          </div>
+        </div>
+      </mat-step>
+      <mat-step [editable]="true">
+        <div class="container d-flex flex-column justify-content-between" [style.height]="'80vh'">
+          <div>
+            <button matStepperPrevious (click)="step = 4" class="btn btn-outline-success rounded-circle"><i class='fas fa-arrow-left'></i></button>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <h3 class="text-center">What is the main reason for your visit?</h3>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-1"></div>  
+            <div class="col-6 col-sm-6 col-md-6 col-lg-5 d-flex position-relative">
+              <img [src]="sex == 'female' ? '../assets/images/female(front).png' : '../assets/images/male(front).png' " [style.verticalAlign]="'top'" (click)="onImgClick($event)" class="toBig">
+              <img [src]="sex == 'female' ? '../assets/images/female(back).png' : '../assets/images/male(back).png' " [style.verticalAlign]="'top'" (click)="onImgClick($event)" class="toSmall">
+            </div>
+            <div class="col-6 col-sm-6 col-md-6 col-lg-5" [style.minHeight]="'30vh'">
+              <ng-multiselect-dropdown class="symtom-list"
+                [placeholder]="'Symtoms'"
+                [data]="symtomList"
+                [(ngModel)]="selectedSymtom"
+                [settings]="symtomListSettings"
+                (onSelect)="onSymtomSelect($event)"
+                maxHeight="1"
+              >
+              </ng-multiselect-dropdown>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-1"></div>  
+          </div>
+          <div class="text-right">
+            <button matStepperNext type="button" class="btn btn-success text-uppercase" (click)="step = 6">Next</button>
+          </div>
+        </div>
+      </mat-step>
+      <mat-step [editable]="true">
+        <div class="container d-flex flex-column justify-content-between" [style.height]="'80vh'">
+          <div>
+            <button matStepperPrevious (click)="step = 5" class="btn btn-outline-success rounded-circle"><i class='fas fa-arrow-left'></i></button>
+          </div>
+          <div class="text-center">
+            <h3 class="text-center">Is your headache service?</h3>
+            <button matStepperNext type="button" class="btn btn-outline-info rounded-circle" [ngStyle]="{'width': '75px', 'height': '75px', 'margin-right':'10px'}" (click)="step = 7">Yes</button>
+            <button matStepperNext type="button" class="btn btn-outline-danger rounded-circle" [ngStyle]="{'width': '75px', 'height': '75px', 'margin-right':'10px'}"  (click)="step = 7">No</button>
+            <button matStepperNext type="button" class="btn btn-outline-secondary rounded-circle" [ngStyle]="{'width': '75px', 'height': '75px'}"  (click)="step = 7">Skip</button>
+          </div>
+          <div [style.height]="'100px'">
+          </div>
+        </div>
+      </mat-step>
+      <mat-step [editable]="true">
+        <div class="container d-flex flex-column justify-content-between" [style.height]="'80vh'">
+          <div>
+            <button matStepperPrevious (click)="step = 6" class="btn btn-outline-success rounded-circle"><i class='fas fa-arrow-left'></i></button>
+          </div>
+          <div>
+            <div class="row">
+              <div class="col-12 col-sm-12 col-md-1 col-lg-2"></div>
+              <div class="col-12 col-sm-12 col-md-10 col-lg-8">
+                <h3 class="text-center">If desired, please add additional symptoms to clearify your primary problem</h3>
+              </div>  
+              <div class="col-12 col-sm-12 col-md-1 col-lg-2"></div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-12 col-sm-12 col-md-1 col-lg-2"></div>
+              <div class="col-12 col-sm-12 col-md-10 col-lg-8">
+                <div class="d-flex">
+                  <div class="w-75 mr-1"><textarea class="form-control" rows="4" id="comment"></textarea></div>
+                  <div class="w-auto">
+                    <label for="photo" class="btn btn-outline-info"><span class="fas fa-camera"></span><h5>Add photo</h5>soon</label>
+                    <input type="file" id="photo" class="d-none">
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-1 col-lg-2"></div>
+            </div>
+          </div>
+          <div class="text-right">
+            <button matStepperNext type="button" class="btn btn-success text-uppercase" (click)="step = 8">Next</button>
+          </div>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
-

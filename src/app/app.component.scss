@@ -1,0 +1,47 @@
+.bg{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url('../assets/images/bg.jpg');
+}
+mat-horizontal-stepper{
+    width: 100% !important;
+}
+mat-card{
+    padding: 8px;
+}
+@keyframes toBigAnimation{
+    from{
+        order: 1;
+        height: 10vh;
+    }
+    to{
+        order: 2;
+        height: 30vh;
+    }
+}
+@keyframes toSmallAnimation{
+    from{
+        order: 2;
+        height: 30vh;
+    }
+    to{
+        order: 1;
+        height: 10vh;
+    }
+}
+.toBig{
+    z-index: 1;
+    animation-name: toBigAnimation;
+    animation-duration: 0.3s;  
+    animation-fill-mode: forwards;
+}
+.toSmall{
+    z-index: 0;
+    animation-name: toSmallAnimation;
+    animation-duration: 0.3s;  
+    animation-fill-mode: forwards;
+    animation-duration: 0.3s;
+}
+.symtom-list{
+}
