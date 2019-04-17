@@ -44,3 +44,17 @@ $QuickQue-theme: mat-light-theme($QuickQue-primary, $QuickQue-accent, $QuickQue-
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.selected-item{
+	border: 0 !important;
+	background-color: #28a745 !important;
+}
+.multiselect-item-checkbox > div::before{
+	border-color: #28a745 !important;
+	background-color: #28a745 !important;
+}
+
+@media (max-width: 767px){
+	.list-group-horizontal{
+		display:block; 
+	}
+}
